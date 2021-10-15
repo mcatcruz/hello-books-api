@@ -35,3 +35,19 @@ def endpoint_with_json_response():
                             "hobbies": ["Reading", "Baking", "Crossword Puzzles"]
                          }
     return json_response_body
+
+'''
+Debugging a broken endpoint
+'''
+
+@hello_world_bp.route("/broken-endpoint-with-broken-server-code")
+def broken_endpoint():
+    response_body = {
+        "name": "Ada Lovelace",
+        "message": "Hello!",
+        "hobbies": ["Fishing", "Swimming", "Watching Reality Shows"]
+    }
+    new_hobby = "Surfing"
+    # The broken code: response_body["hobbies"] + new_hobby
+    response_body["hobbies"].append(new_hobby)
+    return response_body
