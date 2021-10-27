@@ -1,4 +1,5 @@
-# Blueprint is a Flask class. It provides a pattern for grouping related routes (endpoints).
+# Blueprint is a Flask class. 
+# It provides a pattern for grouping related routes (endpoints).
 from flask import Blueprint, jsonify
 from flask.json import tojson_filter
 
@@ -41,7 +42,7 @@ def endpoint_with_json_response():
 Debugging a broken endpoint
 '''
 
-@hello_world_bp.route("/broken-endpoint-with-broken-server-code")
+@hello_world_bp.route("/broken-endpoint-with-broken-server-code", methods=['GET'])
 def broken_endpoint():
     response_body = {
         "name": "Ada Lovelace",
@@ -70,8 +71,12 @@ books = [
 
 books_bp = Blueprint('books', __name__, url_prefix='/books')
 
+#When we receive an HTTP request to retrieve all books in the database, handle_books() is called.
+    # handle_books() will take all the book objects in our hardcoded books "database" (see above) and reorganize their information into a list of dicts
+    #  the list of dicts (aka books_response) will then be presented in JSON format to the client.
 @books_bp.route('', methods=['GET'])
 def handle_books():
+
     books_response = []
     for book in books:
         books_response.append({
@@ -82,6 +87,9 @@ def handle_books():
     return jsonify(books_response)
 
 # Read One Book Endpoint
+    #When we receive an HTTP request to retrieve one book in the database, handle_one_book() is called.
+        # handle_one_book() will take the book object that matches the id in our hardcoded books "database" (see above) and reorganize its information into a dict
+        # the dict will then be presented in JSON format to the client.
 @books_bp.route('/<book_id>', methods=['GET'])
 def handle_one_book(book_id):
     book_id = int(book_id)
