@@ -45,10 +45,8 @@ def handle_books():
     db.session.add(new_book)
     # This will save the data new Book instance to the database
     db.session.commit()
-
     # This returns a response to the user. Note that we are also returning a response status.
     return make_response(f'Book, "{new_book.title}", successfully created.', 201)
-
 # Creating An Endpoint for a Single Book
 @books_bp.route('/<book_id>', methods = ['GET', 'PUT', 'DELETE'])
 def handle_a_book(book_id):
