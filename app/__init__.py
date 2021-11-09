@@ -44,7 +44,8 @@ def create_app(test_config=None):
     from .routes_using_models import books_bp
     app.register_blueprint(books_bp)
 
-
-
+    from app.models.author import Author
+    from .routes_for_author import author_bp
+    app.register_blueprint(author_bp)
 
     return app
