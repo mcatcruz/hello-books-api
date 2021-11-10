@@ -1,5 +1,5 @@
 from app import db
-from book import Book
+
 
 class Author(db.Model):
     __tablename__ = 'author'

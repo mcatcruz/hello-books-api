@@ -48,4 +48,7 @@ def create_app(test_config=None):
     from .routes_for_author import author_bp
     app.register_blueprint(author_bp)
 
+    from app.models.genre import Genre
+    from .routes_for_genre import genre_bp
+    app.register_blueprint(genre_bp)
     return app
