@@ -1,6 +1,7 @@
+from sqlalchemy.sql.schema import ForeignKey
 from app import db
 
-book_genre_table = db.Table('book_genre', db.Model.metadata, 
-    db.Column('book_id', db.ForeignKey('book.id'), primary_key=True),
-    db.Column('genre_id', db.ForeignKey('genre.id'), primary_key=True)
-)
+class BookGenre(db.Model):
+    __tablename__ = "books_genres"
+    book_id = db.Column(db.Integer, db.ForeignKey('books.id'), primary_key=True,nullable=False)
+    genre_id = db.Column(db.Integer, db.ForeignKey('genre.id'), primary_key=True,nullable=False)

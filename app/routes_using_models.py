@@ -3,6 +3,7 @@
 # Blueprint is a Flask class. It provides a pattern for grouping related routes (endpoints).
 from app import db
 from app.models.book import Book
+from app.models.genre import Genre
 from flask import Blueprint, jsonify, make_response, request
 # The imported request object (see line 7) represents the current HTTP request.
 # make_response is a helper method
@@ -76,4 +77,12 @@ def handle_a_book(book_id):
         db.session.commit()
         return make_response(f"Book {book.title} successfully deleted")
 
-        
+@books_bp.route('/<book_id>/assign_genres', methods=['PATCH'])
+def handle_assign_genres(book_id):
+    request_body = request.get_json() # Note that the request body contains a list of genre ids
+    book = Book.query.get(book_id)
+    for id in request_body["genres"]:
+        book.genres.append(Genre.query.get(id))
+
+    db.session.commit()
+    return make_response("Genres successfully added")
